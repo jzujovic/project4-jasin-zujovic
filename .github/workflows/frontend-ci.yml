@@ -1,0 +1,30 @@
+# name
+name: frontend-ci
+
+on:
+  # manual
+  workflow_dispatch:
+  
+  # on pull_ruest
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "starter/frontend/**/*"
+
+jobs:
+  lint:
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Use Node.js 
+      uses: actions/setup-node@v3
+
+    - name: Install
+      run: |
+        npm ci
+
+    - name: Lint
+      run: |
+        npm run lint
