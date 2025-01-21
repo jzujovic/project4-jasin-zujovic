@@ -24,9 +24,10 @@ jobs:
 
     - name: Install
       working-directory: starter/frontend
-      run:
+      run: |
         npm ci
 
     - name: Lint
+      working-directory: starter/frontend
       run: |
         npm run lint
