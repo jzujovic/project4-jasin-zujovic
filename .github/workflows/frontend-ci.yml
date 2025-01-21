@@ -23,7 +23,8 @@ jobs:
       uses: actions/setup-node@v3
 
     - name: Install
-      run: |
+      working-directory: starter/frontend
+      run:
         npm ci
 
     - name: Lint
