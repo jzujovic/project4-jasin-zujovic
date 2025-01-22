@@ -1,0 +1,83 @@
+# name
+name: backend-ci
+
+on:
+  # manual
+  workflow_dispatch:
+  
+  # on pull_ruest
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "starter/frontend/**/*"
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    # checkout code
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # setup Python
+    - name: Use Python
+      uses: actions/setup-python@v5
+      with:
+        # use cache
+        cache: "pip"
+        cache-dependency-path: starter/backend
+
+    # install dependencies
+    - name: Install
+      working-directory: starter/backend
+      run: |
+        pipenv install
+
+    # lint
+    - name: Lint
+      working-directory: starter/backend
+      run: |
+        pipenv run lint
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    # checkout code
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # setup Python
+    - name: Use Python
+      uses: actions/setup-python@v5
+      with:
+        # use cache
+        cache: "pip"
+        cache-dependency-path: starter/backend
+    
+    # install dependencies
+    - name: Install
+      working-directory: starter/backend
+      run: |
+        pipenv install
+
+    # test
+    - name: Test
+      working-directory: starter/backend
+      run: |
+        pipenv run test
+
+  build:
+    runs-on: ubuntu-latest
+    # only if lint and test are successful
+    needs: [lint, test]
+    steps:
+    # checkout code
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # build Docker image with backend URL variable
+    - name: Build Docker image
+      working-directory: starter/backend
+      run: |
+        docker build --tag mp-backend:latest .
