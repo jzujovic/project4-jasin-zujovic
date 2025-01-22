@@ -98,5 +98,5 @@ jobs:
     - name: Build Docker image
       working-directory: starter/backend
       run: |
-        docker build --tag 959819173443.dkr.ecr.us-east-1.amazonaws.com/backend/mp-backend:${GITHUB_SHA} .
-        docker push 959819173443.dkr.ecr.us-east-1.amazonaws.com/backend/mp-backend:${GITHUB_SHA}
+        docker build --tag 959819173443.dkr.ecr.us-east-1.amazonaws.com/backend:${GITHUB_SHA} .
+        docker push 959819173443.dkr.ecr.us-east-1.amazonaws.com/backend:${GITHUB_SHA}
