@@ -1,3 +1,11 @@
+# Movie Picture Pipeline Solution
+
+### Frontend URL
+http://a620f7cccd5264b32a3a19ba7105d83b-1671350907.us-east-1.elb.amazonaws.com/
+
+### Backend URL
+http://a3743aeb788714f6ab6d6e511bf89577-1310681013.us-east-1.elb.amazonaws.com/
+
 # Movie Picture Pipeline
 
 You've been brought on as the DevOps resource for a development team that manages a web application that is a catalog of Movie Picture movies. They're in dire need of automating their development workflows in hopes of accelerating their release cycle. They'd like to use Github Actions to automate testing, building and deploying their applications to an existing Kubernetes cluster.
