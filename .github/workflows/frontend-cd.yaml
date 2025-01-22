@@ -120,7 +120,7 @@ jobs:
         aws eks update-kubeconfig --name cluster
 
     - name: Deploy Kubernetes manifests
-      working-directory: starter/backend/k8s
+      working-directory: starter/frontend/k8s
       run: |
-        kustomize edit set image backend=959819173443.dkr.ecr.us-east-1.amazonaws.com/frontend:${GITHUB_SHA}
+        kustomize edit set image frontend=959819173443.dkr.ecr.us-east-1.amazonaws.com/frontend:${GITHUB_SHA}
         kustomize build | kubectl apply -f -
