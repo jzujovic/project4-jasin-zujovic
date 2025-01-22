@@ -105,6 +105,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
+    # checkout code
+    - name: Checkout code
+      uses: actions/checkout@v3
+
     # log into ECR
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v4
