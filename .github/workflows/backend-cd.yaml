@@ -121,6 +121,10 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v2
 
+    - name: Configure kubeconfig for EKS
+      run: |
+        aws eks update-kubeconfig --name cluster
+
     - name: Deploy Kubernetes manifests
       working-directory: starter/backend/k8s
       run: |
