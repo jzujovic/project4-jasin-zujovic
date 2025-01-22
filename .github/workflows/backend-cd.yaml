@@ -82,13 +82,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    # build Docker image with backend URL variable
-    - name: Build Docker image
-      working-directory: starter/backend
-      run: |
-        docker build --tag 959819173443.dkr.ecr.us-east-1.amazonaws.com/backend/mp-backend:${GITHUB_SHA} .
-        docker push 959819173443.dkr.ecr.us-east-1.amazonaws.com/backend/mp-backend:${GITHUB_SHA}
-
     # log into ECR
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v4
@@ -100,3 +93,10 @@ jobs:
     - name: Login to Amazon ECR
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v2
+
+    # build Docker image with backend URL variable
+    - name: Build Docker image
+      working-directory: starter/backend
+      run: |
+        docker build --tag 959819173443.dkr.ecr.us-east-1.amazonaws.com/backend/mp-backend:${GITHUB_SHA} .
+        docker push 959819173443.dkr.ecr.us-east-1.amazonaws.com/backend/mp-backend:${GITHUB_SHA}
