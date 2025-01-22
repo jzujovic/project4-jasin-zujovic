@@ -16,20 +16,25 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
+    # checkout code
     - name: Checkout code
       uses: actions/checkout@v3
 
+    # setup Node.js
     - name: Use Node.js 
       uses: actions/setup-node@v3
       with:
+        # use cache
         cache: "npm"
         cache-dependency-path: starter/frontend
-
+    
+    # install dependencies
     - name: Install
       working-directory: starter/frontend
       run: |
         npm ci
 
+    # lint
     - name: Lint
       working-directory: starter/frontend
       run: |
@@ -38,20 +43,25 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+    # checkout code
     - name: Checkout code
       uses: actions/checkout@v3
 
+    # setup Node.js
     - name: Use Node.js 
       uses: actions/setup-node@v3
       with:
+        # use cache
         cache: "npm"
         cache-dependency-path: starter/frontend
     
+    # install dependencies
     - name: Install
       working-directory: starter/frontend
       run: |
         npm ci
 
+    # test
     - name: Test
       working-directory: starter/frontend
       run: |
@@ -59,11 +69,14 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    # only if lint and test are successful
     needs: [lint, test]
     steps:
+    # checkout code
     - name: Checkout code
       uses: actions/checkout@v3
 
+    # build Docker image with backend URL variable
     - name: Build Docker image
       working-directory: starter/frontend
       run: |
