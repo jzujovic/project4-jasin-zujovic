@@ -21,6 +21,8 @@ jobs:
 
     - name: Use Node.js 
       uses: actions/setup-node@v3
+      with:
+        cache: "npm"
 
     - name: Install
       working-directory: starter/frontend
@@ -40,6 +42,8 @@ jobs:
 
     - name: Use Node.js 
       uses: actions/setup-node@v3
+      with:
+        cache: "npm"
     
     - name: Install
       working-directory: starter/frontend
