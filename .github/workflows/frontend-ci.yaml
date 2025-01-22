@@ -12,6 +12,9 @@ on:
     paths:
       - "starter/frontend/**/*"
 
+env:
+  REACT_APP_MOVIE_API_URL=${{ vars.REACT_APP_MOVIE_API_URL }}
+  
 jobs:
   lint:
     runs-on: ubuntu-latest
