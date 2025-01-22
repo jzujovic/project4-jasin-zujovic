@@ -24,6 +24,8 @@ jobs:
     - name: Use Python
       uses: actions/setup-python@v5
       with:
+        # use required Python version from Pipfile
+        python-version: "3.10"
         # use cache
         cache: "pip"
         cache-dependency-path: starter/backend
@@ -52,6 +54,8 @@ jobs:
     - name: Use Python
       uses: actions/setup-python@v5
       with:
+        # use required Python version from Pipfile
+        python-version: "3.10"
         # use cache
         cache: "pip"
         cache-dependency-path: starter/backend
