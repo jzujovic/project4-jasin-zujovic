@@ -32,6 +32,7 @@ jobs:
     - name: Install
       working-directory: starter/backend
       run: |
+        pip install pipenv
         pipenv install
 
     # lint
@@ -59,6 +60,7 @@ jobs:
     - name: Install
       working-directory: starter/backend
       run: |
+        pip install pipenv
         pipenv install
 
     # test
