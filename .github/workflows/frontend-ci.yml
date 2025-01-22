@@ -23,6 +23,7 @@ jobs:
       uses: actions/setup-node@v3
       with:
         cache: "npm"
+        cache-dependency-path: starter/frontend
 
     - name: Install
       working-directory: starter/frontend
@@ -44,6 +45,7 @@ jobs:
       uses: actions/setup-node@v3
       with:
         cache: "npm"
+        cache-dependency-path: starter/frontend
     
     - name: Install
       working-directory: starter/frontend
