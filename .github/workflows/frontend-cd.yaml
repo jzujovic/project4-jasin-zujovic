@@ -130,3 +130,7 @@ jobs:
       run: |
         kustomize edit set image frontend=959819173443.dkr.ecr.us-east-1.amazonaws.com/frontend:${GITHUB_SHA}
         kustomize build | kubectl apply -f -
+
+    - name: Print frontend URL
+      run: |
+        kubectl get svc frontend
