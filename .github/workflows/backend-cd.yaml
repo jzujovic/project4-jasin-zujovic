@@ -95,8 +95,30 @@ jobs:
       uses: aws-actions/amazon-ecr-login@v2
 
     # build Docker image with backend URL variable
-    - name: Build Docker image
+    - name: Build and push Docker image
       working-directory: starter/backend
       run: |
         docker build --tag 959819173443.dkr.ecr.us-east-1.amazonaws.com/backend:${GITHUB_SHA} .
         docker push 959819173443.dkr.ecr.us-east-1.amazonaws.com/backend:${GITHUB_SHA}
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+    # log into ECR
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v2
+
+    - name: Deploy Kubernetes manifests
+      working-directory: backent/k8s
+      run: |
+        kustomize edit set image backend=959819173443.dkr.ecr.us-east-1.amazonaws.com/backend:${GITHUB_SHA}
+        kustomize build | kubectl apply -f -
