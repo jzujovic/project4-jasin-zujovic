@@ -130,3 +130,7 @@ jobs:
       run: |
         kustomize edit set image backend=959819173443.dkr.ecr.us-east-1.amazonaws.com/backend:${GITHUB_SHA}
         kustomize build | kubectl apply -f -
+
+    - name: Print backend URL
+      run: |
+        kubectl get svc backend
