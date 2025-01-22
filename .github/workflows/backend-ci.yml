@@ -30,12 +30,12 @@ jobs:
         cache: "pip"
         cache-dependency-path: starter/backend
 
-    # install dependencies
+    # install dependencies including dev packages for linting
     - name: Install
       working-directory: starter/backend
       run: |
         pip install pipenv
-        pipenv install
+        pipenv install --dev
 
     # lint
     - name: Lint
