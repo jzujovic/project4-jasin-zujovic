@@ -92,7 +92,7 @@ jobs:
     - name: Build and push Docker image
       working-directory: starter/frontend
       run: |
-        docker build --build-arg=REACT_APP_MOVIE_API_URL=http://a3743aeb788714f6ab6d6e511bf89577-1310681013.us-east-1.elb.amazonaws.com --tag 959819173443.dkr.ecr.us-east-1.amazonaws.com/frontend:${GITHUB_SHA} .
+        docker build --build-arg=REACT_APP_MOVIE_API_URL=${{ env.REACT_APP_MOVIE_API_URL }} --tag 959819173443.dkr.ecr.us-east-1.amazonaws.com/frontend:${GITHUB_SHA} .
         docker push 959819173443.dkr.ecr.us-east-1.amazonaws.com/frontend:${GITHUB_SHA}
 
   deploy:
