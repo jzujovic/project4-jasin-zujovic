@@ -1,0 +1,13 @@
+# name
+name: backend-cd
+
+on:
+  # manual
+  workflow_dispatch:
+  
+  # on push
+  push:
+    branches:
+      - main
+    paths:
+      - "starter/backend/**/*"
