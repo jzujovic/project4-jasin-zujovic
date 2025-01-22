@@ -118,7 +118,7 @@ jobs:
       uses: aws-actions/amazon-ecr-login@v2
 
     - name: Deploy Kubernetes manifests
-      working-directory: backend/k8s
+      working-directory: starter/backend/k8s
       run: |
         kustomize edit set image backend=959819173443.dkr.ecr.us-east-1.amazonaws.com/backend:${GITHUB_SHA}
         kustomize build | kubectl apply -f -
