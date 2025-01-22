@@ -5,7 +5,7 @@ on:
   # manual
   workflow_dispatch:
   
-  # on pull_ruest
+  # on pull_request
   pull_request:
     branches:
       - main

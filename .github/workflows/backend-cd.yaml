@@ -11,3 +11,90 @@ on:
       - main
     paths:
       - "starter/backend/**/*"
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    # checkout code
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # setup Python
+    - name: Use Python
+      uses: actions/setup-python@v5
+      with:
+        # use required Python version from Pipfile
+        python-version: "3.10"
+        # use cache
+        cache: "pip"
+        cache-dependency-path: starter/backend
+
+    # install dependencies including dev packages for linting
+    - name: Install
+      working-directory: starter/backend
+      run: |
+        pip install pipenv
+        pipenv install --dev
+
+    # lint
+    - name: Lint
+      working-directory: starter/backend
+      run: |
+        pipenv run lint
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    # checkout code
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # setup Python
+    - name: Use Python
+      uses: actions/setup-python@v5
+      with:
+        # use required Python version from Pipfile
+        python-version: "3.10"
+        # use cache
+        cache: "pip"
+        cache-dependency-path: starter/backend
+    
+    # install dependencies
+    - name: Install
+      working-directory: starter/backend
+      run: |
+        pip install pipenv
+        pipenv install
+
+    # test
+    - name: Test
+      working-directory: starter/backend
+      run: |
+        pipenv run test
+
+  build:
+    runs-on: ubuntu-latest
+    # only if lint and test are successful
+    needs: [lint, test]
+    steps:
+    # checkout code
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # build Docker image with backend URL variable
+    - name: Build Docker image
+      working-directory: starter/backend
+      run: |
+        docker build --tag mp-backend:${GITHUB_SHA} .
+
+    # log into ECR
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: arn:aws:iam::959819173443:user/github-action-user
+        aws-region: aws-region-1
+
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v2
